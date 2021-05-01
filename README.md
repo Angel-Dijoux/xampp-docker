@@ -10,9 +10,9 @@ For To verify the installation :
 ```sudo docker-compose --version```
 
 
-### Dockercompose for linux amd64: 
-
 **Create a file ```docker-compose.yml``` and copy/paste in this file, or download the file that suits you in my repo.**
+
+### Dockercompose for linux amd64: 
 ```
 version: '3.3'
 services: 
