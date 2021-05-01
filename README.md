@@ -1,8 +1,18 @@
 # xamp-in-docker
+### Do you need preinstalled docker-compose (for linux) : 
+
+Run this command in your console:
+
+```sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose && sudo chmod +x /usr/bin/docker-compose```
+
+For To verify the installation :
+
+```sudo docker-compose --version```
 
 
 ### Dockercompose for linux amd64: 
 
+**Create a file ```docker-compose.yml``` and copy/paste in this file, or download the file that suits you in my repo.**
 ```
 version: '3.3'
 services: 
@@ -42,7 +52,6 @@ services:
 ``` sudo docker-compose up -d ```
 
 ### Dockercompose for linux arm (raspberrypi...)
-
 ``` 
 version: '3.3'
 services: 
