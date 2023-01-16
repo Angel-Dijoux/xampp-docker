@@ -95,7 +95,7 @@ Password for phpmyadmin : *```root```*
 
 **Note: Change your password in phpmyadmin if you use your server in public.**
 
-**Note: If the ports are used on the machine changed them with a free port.**
+**Note: If ports is used on the machine changed them with a free port.**
 
 **Note: ```./php``` is in your user path.**
 
