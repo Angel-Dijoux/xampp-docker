@@ -1,6 +1,6 @@
-FROM php:8.2.1-apache
-FROM phpmyadmin:latest
-RUN apt-get update && apt-get upgrade -y
+FROM php:8.2.4-apache
+RUN apt update && apt upgrade -y
+RUN apt install git -y
 RUN docker-php-ext-install pdo pdo_mysql mysqli
-EXPOSE 80
 EXPOSE 8080
+CMD [ "" ]
