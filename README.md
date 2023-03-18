@@ -1,114 +1,91 @@
 # xamp-in-docker
-### Do you need preinstalled docker-compose (for linux) : 
 
-Run this command in your console:
+Check this for install docker compose : https://docs.docker.com/compose/install/
 
-```sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose && sudo chmod +x /usr/bin/docker-compose```
+**Create a file `docker-compose.yml` and copy/paste in this file, or download the file that suits you in my repo.**
 
-For to verify the installation :
+### Dockercompose for linux amd64:
 
-```sudo docker-compose --version```
-
-
-**Create a file ```docker-compose.yml``` and copy/paste in this file, or download the file that suits you in my repo.**
-
-### Dockercompose for linux amd64: 
 ```
 version: '3.3'
-services: 
+services:
     web:
         image: elki97413/pdo_mysql-php-apache
         container_name: apache-php
-        depends_on: 
+        depends_on:
             - db
-        volumes: 
+        volumes:
             - ./php:/var/www/html
         restart: always
-        ports: 
+        ports:
             - 80:80
-    db: 
-        image: mysql:latest 
+    db:
+        image: mysql:latest
         container_name: server_mysql
         restart: always
-        environment: 
+        environment:
             MYSQL_ROOT_PASSWORD: root
-        ports: 
+        ports:
             - 6003:3306
     phpmyadmin:
         image: phpmyadmin
         container_name: phpmyadmin
-        environment: 
+        environment:
             - PMA_ARBITRATY=1
         restart: always
         ports:
             - 8080:80
-        volumes: 
+        volumes:
             - /sessions
             - ~/docker/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
             - /custom/phpmyadmin/theme/:/www/themes/theme/
 
 ```
 
-``` sudo docker-compose up -d ```
+## The image is not up to date for RPI
+
+`sudo docker-compose up -d`
 
 ### Dockercompose for linux arm (raspberrypi...)
-``` 
+
+```
 version: '3.3'
-services: 
+services:
+    db:
+        image: mysql:latest
+        container_name: server_mysql2
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: changeme
+            MYSQL_USER: changeme
+            MYSQL_PASSWORD: changeme
+        ports:
+            - 6004:3306
     web:
-        image: elki97413/pdo_mysql-php-apache_raspberrypi
-        container_name: apache-php
-        depends_on: 
+        image:  elki97413/pdo_mysql-php-apache:latest
+        container_name: apache-php2
+        depends_on:
             - db
-        volumes: 
+        volumes:
             - ./php:/var/www/html
         restart: always
-        ports: 
-            - 80:80
-    db: 
-        image: hypriot/rpi-mysql:latest 
-        container_name: server_mysql
-        restart: always
-        environment: 
-            MYSQL_ROOT_PASSWORD: root
-        ports: 
-            - 6003:3306
-    phpmyadmin:
-        image: phpmyadmin
-        container_name: phpmyadmin
-        environment: 
-            - PMA_ARBITRATY=1
-        restart: always
+        environment:
+             - PMA_HOST=db
+             - PMA_ARBITRATY=1
         ports:
-            - 8080:80
-        volumes: 
-            - /sessions
-            - ~/docker/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
-            - /custom/phpmyadmin/theme/:/www/themes/theme/
+            - 80:80
 ```
 
-``` sudo docker-compose up -d ```
+`sudo docker-compose up -d`
 
-Username for phpmyadmin : *```root```*
+Username for phpmyadmin : _`root`_
 
-Password for phpmyadmin : *```root```*
+Password for phpmyadmin : _`changeme`_
 
 **Note: Change your password in phpmyadmin if you use your server in public.**
 
-**Note: If ports is used on the machine changed them with a free port.**
+**Note: `./php` is in your user path.**
 
-**Note: ```./php``` is in your user path.**
-
-*Image docker use for php-apache is ```php:8-apache```*
-
-### This image are edit by this Dockerfile : 
-
-``` 
-FROM php:8-apache
-RUN apt-get update && apt-get upgrade -y
-RUN docker-php-ext-install pdo pdo_mysql mysqli
-EXPOSE 80
-```
-
+_Image docker use for php-apache is `php:8-apache`_
 
 My dockerHub profil: https://hub.docker.com/u/elki97413
