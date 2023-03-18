@@ -53,7 +53,7 @@ version: '3.3'
 services:
     db:
         image: mysql:latest
-        container_name: server_mysql2
+        container_name: mysql
         restart: always
         environment:
             MYSQL_ROOT_PASSWORD: changeme
@@ -62,8 +62,8 @@ services:
         ports:
             - 6004:3306
     web:
-        image:  elki97413/pdo_mysql-php-apache:latest
-        container_name: apache-php2
+        image:  elki97413/pdo_mysql-php-apache:1.0.1
+        container_name: pma-apache-php8
         depends_on:
             - db
         volumes:
